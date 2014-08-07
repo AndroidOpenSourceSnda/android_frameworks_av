@@ -54,6 +54,11 @@ LOCAL_SRC_FILES:=                         \
         XINGSeeker.cpp                    \
         avc_utils.cpp                     \
 
+ifeq ($(BOARD_USES_STE_FM),true)
+LOCAL_SRC_FILES+=                         \
+        FMRadioSource.cpp                 \
+        PCMExtractor.cpp
+endif
 LOCAL_C_INCLUDES:= \
         $(TOP)/frameworks/av/include/media/stagefright/timedtext \
         $(TOP)/frameworks/native/include/media/hardware \

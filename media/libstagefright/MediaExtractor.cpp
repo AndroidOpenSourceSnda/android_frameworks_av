@@ -23,6 +23,9 @@
 #include "include/MPEG4Extractor.h"
 #include "include/WAVExtractor.h"
 #include "include/OggExtractor.h"
+#ifdef STE_FM
+#include "include/PCMExtractor.h"
+#endif
 #include "include/MPEG2PSExtractor.h"
 #include "include/MPEG2TSExtractor.h"
 #include "include/DRMExtractor.h"
@@ -116,6 +119,10 @@ sp<MediaExtractor> MediaExtractor::Create(
         ret = new AACExtractor(source, meta);
     } else if (!strcasecmp(mime, MEDIA_MIMETYPE_CONTAINER_MPEG2PS)) {
         ret = new MPEG2PSExtractor(source);
+#ifdef STE_FM
+    } else if (!strcasecmp(mime, MEDIA_MIMETYPE_AUDIO_RAW)) {
+        ret = new PCMExtractor(source);
+#endif
     }
 
     if (ret != NULL) {
