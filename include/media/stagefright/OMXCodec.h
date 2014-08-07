@@ -86,6 +86,10 @@ struct OMXCodec : public MediaSource,
     // from MediaBufferObserver
     virtual void signalBufferReturned(MediaBuffer *buffer);
 
+#ifdef STE_HARDWARE
+    static uint32_t OmxToHALFormat(OMX_COLOR_FORMATTYPE omxValue);
+#endif
+
     enum Quirks {
         kNeedsFlushBeforeDisable              = 1,
         kWantsNALFragments                    = 2,
@@ -101,6 +105,9 @@ struct OMXCodec : public MediaSource,
         kAvoidMemcopyInputRecordingFrames     = 2048,
         kRequiresLargerEncoderOutputBuffer    = 4096,
         kOutputBuffersAreUnreadable           = 8192,
+#ifdef STE_HARDWARE
+        kRequiresStoreMetaDataBeforeIdle      = 16384,
+#endif
     };
 
     // for use by ACodec
